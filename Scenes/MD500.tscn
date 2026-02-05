@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b052tkk77mk44"]
+
+[ext_resource type="PackedScene" uid="uid://blxsde2b5ur30" path="res://md500.fbx" id="1_6pgy0"]
+[ext_resource type="Script" uid="uid://c3dvp57d7vgla" path="res://Scenes/md_500.gd" id="1_oytje"]
+[ext_resource type="PackedScene" uid="uid://bku3ldq0llk58" path="res://Kiowa/Body.fbx" id="3_77gdl"]
+[ext_resource type="PackedScene" uid="uid://c42sfloreqa01" path="res://Kiowa/mainRotor.fbx" id="4_jkkci"]
+[ext_resource type="PackedScene" uid="uid://cxs607mepqmyx" path="res://Kiowa/tailRotor.fbx" id="5_ivp4k"]
+[ext_resource type="PackedScene" uid="uid://vmnbxdqenqkp" path="res://Kiowa/stick.fbx" id="6_jkkci"]
+[ext_resource type="PackedScene" uid="uid://bbcewbjslinye" path="res://Kiowa/collectivee.fbx" id="7_ivp4k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxatr"]
+radius = 0.77246094
+height = 2.690918
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w4su7"]
+radius = 0.11376953
+height = 2.425232
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vwy8u"]
+radius = 0.1484375
+height = 2.1445313
+
+[node name="CharacterBody3D" type="RigidBody3D" unique_id=523075479 node_paths=PackedStringArray("camera", "tailRotorNode", "mainRotorNode", "collectiveNode", "stickNode", "stick2Node")]
+mass = 100.0
+center_of_mass_mode = 1
+script = ExtResource("1_oytje")
+camera = NodePath("CameraMarker/Camera3D")
+tailRotorNode = NodePath("tailRotor")
+mainRotorNode = NodePath("mainRotor")
+collectiveNode = NodePath("collectivee")
+stickNode = NodePath("stick")
+stick2Node = NodePath("stick2")
+
+[node name="Body" type="CollisionShape3D" parent="." unique_id=608865768]
+transform = Transform3D(1, 0, 0, 0, -0.0058642775, 0.99998295, 0, -0.99998295, -0.0058642775, 0, -0.33849725, -0.17120343)
+shape = SubResource("CapsuleShape3D_gxatr")
+
+[node name="Tail" type="CollisionShape3D" parent="." unique_id=372417389]
+transform = Transform3D(1, 0, 0, 0, -0.07017437, 0.99753475, 0, -0.99753475, -0.07017437, 0, 0.08552093, -2.6713214)
+shape = SubResource("CapsuleShape3D_w4su7")
+
+[node name="Skids" type="CollisionShape3D" parent="." unique_id=282154629]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7, -1.24, 0)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="Skids2" type="CollisionShape3D" parent="." unique_id=463456018]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.7, -1.24, -0.008796096)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="md500" parent="." unique_id=1065254875 instance=ExtResource("1_6pgy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29894266, 1.1374741)
+visible = false
+
+[node name="CameraMarker" type="Marker3D" parent="." unique_id=1981270082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28652805, -0.30261517, 0.5911975)
+
+[node name="Camera3D" type="Camera3D" parent="CameraMarker" unique_id=1792972061]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.00015985966, 0.00016488135, 0.00048935413)
+current = true
+fov = 100.0
+
+[node name="Body2" parent="." unique_id=266801152 instance=ExtResource("3_77gdl")]
+transform = Transform3D(-2.6226834e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.6226834e-08, 0, -1.7750216, 0.29047185)
+
+[node name="mainRotor" parent="." unique_id=1388808630 instance=ExtResource("4_jkkci")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.16679317, -0.37183452)
+
+[node name="tailRotor" parent="." unique_id=1207885264 instance=ExtResource("5_ivp4k")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.49486, -0.11794609, -4.657449)
+
+[node name="stick2" parent="." unique_id=1820061471 instance=ExtResource("6_jkkci")]
+transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, -0.273, -0.95, 0.703)
+
+[node name="stick" parent="." unique_id=335550895 instance=ExtResource("6_jkkci")]
+transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, 0.27339464, -0.95033354, 0.703333)
+
+[node name="collectivee" parent="." unique_id=1389315493 instance=ExtResource("7_ivp4k")]
+transform = Transform3D(-3.059797e-08, 3.0912473e-16, 0.7, 0.033511467, 0.6991973, 1.4648328e-09, -0.6991973, 0.033511467, -3.0562884e-08, 0.28328103, -0.853254, 0.5119036)

@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://b052tkk77mk44"]
+
+[ext_resource type="PackedScene" uid="uid://blxsde2b5ur30" path="res://md500.fbx" id="1_6pgy0"]
+[ext_resource type="Script" uid="uid://c3dvp57d7vgla" path="res://Scenes/md_500.gd" id="1_oytje"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxatr"]
+radius = 0.77246094
+height = 2.690918
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w4su7"]
+radius = 0.11376953
+height = 2.425232
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vwy8u"]
+radius = 0.1484375
+
+[node name="CharacterBody3D" type="RigidBody3D" unique_id=523075479]
+mass = 100.0
+center_of_mass_mode = 1
+script = ExtResource("1_oytje")
+
+[node name="Body" type="CollisionShape3D" parent="." unique_id=608865768]
+transform = Transform3D(1, 0, 0, 0, -0.0058642775, 0.99998295, 0, -0.99998295, -0.0058642775, 0, -0.33849725, -0.17120343)
+shape = SubResource("CapsuleShape3D_gxatr")
+
+[node name="Tail" type="CollisionShape3D" parent="." unique_id=372417389]
+transform = Transform3D(1, 0, 0, 0, -0.07017437, 0.99753475, 0, -0.99753475, -0.07017437, 0, 0.08552093, -2.6713214)
+shape = SubResource("CapsuleShape3D_w4su7")
+
+[node name="Skids" type="CollisionShape3D" parent="." unique_id=282154629]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7, -1.24, -0.008796096)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="Skids2" type="CollisionShape3D" parent="." unique_id=463456018]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.7, -1.24, -0.008796096)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="md500" parent="." unique_id=1065254875 instance=ExtResource("1_6pgy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29894266, 1.1374741)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1792972061]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -5.516899, 0.52901626, -1.2601879)
+current = true
+fov = 110.0

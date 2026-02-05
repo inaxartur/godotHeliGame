@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c75k43p5ye0is"]
+
+[ext_resource type="PackedScene" uid="uid://bmcoqbnto0t2p" path="res://map.fbx" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://b052tkk77mk44" path="res://Scenes/MD500.tscn" id="1_jjgbg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u77a"]
+size = Vector3(19, 0.49996948, 17)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jjgbg"]
+
+[node name="Node3D" type="Node3D" unique_id=1770173295]
+
+[node name="Map" type="StaticBody3D" parent="." unique_id=2031001391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, -0.25001526, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map" unique_id=976188348]
+shape = SubResource("BoxShape3D_7u77a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map" unique_id=701734106]
+transform = Transform3D(18.804527, 0, 0, 0, 0.50086474, 0, 0, 0, 17.02657, 0, 0, 0)
+mesh = SubResource("BoxMesh_jjgbg")
+
+[node name="map" parent="Map" unique_id=581252011 instance=ExtResource("1_bo1nx")]
+transform = Transform3D(10.455632, 0, 0, 0, 10.455632, 0, 0, 0, 10.455632, -238.4287, -14.813137, 102.57254)
+
+[node name="Heli" parent="." unique_id=690214996 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.8794801, -1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=423313674]
+transform = Transform3D(1, 0, 0, 0, 0.060072906, 0.998194, 0, -0.998194, 0.060072906, 0, 5.499166, 6.463916)
