@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://mrfyt3scj2fh"]
+
+[ext_resource type="Script" uid="uid://c3dvp57d7vgla" path="res://assets/Scripts/md_500.gd" id="1_7ig1u"]
+[ext_resource type="PackedScene" uid="uid://blxsde2b5ur30" path="res://assets/Models/md500.fbx" id="2_br1qm"]
+[ext_resource type="Script" uid="uid://ctgquom7dq07r" path="res://assets/Scripts/player_camera.gd" id="3_i82cg"]
+[ext_resource type="PackedScene" uid="uid://bku3ldq0llk58" path="res://assets/Models/Kiowa/Body.fbx" id="4_cwq3k"]
+[ext_resource type="PackedScene" uid="uid://c42sfloreqa01" path="res://assets/Models/Kiowa/mainRotor.fbx" id="5_77sjf"]
+[ext_resource type="PackedScene" uid="uid://cxs607mepqmyx" path="res://assets/Models/Kiowa/tailRotor.fbx" id="6_npwqm"]
+[ext_resource type="PackedScene" uid="uid://vmnbxdqenqkp" path="res://assets/Models/Kiowa/stick.fbx" id="7_8fugt"]
+[ext_resource type="PackedScene" uid="uid://bbcewbjslinye" path="res://assets/Models/Kiowa/collectivee.fbx" id="8_yvisg"]
+[ext_resource type="PackedScene" uid="uid://c7jnncficak32" path="res://Scenes/wing.tscn" id="9_br1qm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w4su7"]
+radius = 0.11376953
+height = 2.425232
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxatr"]
+radius = 0.77246094
+height = 2.690918
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vwy8u"]
+radius = 0.1484375
+height = 2.1445313
+
+[node name="Player" type="RigidBody3D" unique_id=523075479 node_paths=PackedStringArray("tailRotorNode", "mainRotorNode", "collectiveNode", "stickNode", "stick2Node")]
+mass = 175.0
+center_of_mass_mode = 1
+script = ExtResource("1_7ig1u")
+tailRotorNode = NodePath("tailRotor")
+mainRotorNode = NodePath("mainRotor")
+collectiveNode = NodePath("HOTAS/collectivee")
+stickNode = NodePath("HOTAS/stick")
+stick2Node = NodePath("HOTAS/stick2")
+
+[node name="HOTAS" type="Node3D" parent="." unique_id=727686336]
+
+[node name="stick2" parent="HOTAS" unique_id=2088857616 instance=ExtResource("7_8fugt")]
+transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, -0.273, -0.95, 1.0178682)
+
+[node name="stick" parent="HOTAS" unique_id=402017420 instance=ExtResource("7_8fugt")]
+transform = Transform3D(-3.059797e-08, 0, 0.7, 0, 0.7, 0, -0.7, 0, -3.059797e-08, 0.27339464, -0.95033354, 1.0182011)
+
+[node name="collectivee" parent="HOTAS" unique_id=1266531655 instance=ExtResource("8_yvisg")]
+transform = Transform3D(-3.059797e-08, 3.0912473e-16, 0.7, 0.033511467, 0.6991973, 1.4648328e-09, -0.6991973, 0.033511467, -3.0562884e-08, 0.28328103, -0.853254, 0.82677174)
+
+[node name="Tail" type="CollisionShape3D" parent="." unique_id=372417389]
+transform = Transform3D(1, 0, 0, 0, -0.07017438, 0.9975348, 0, -0.9975348, -0.07017438, 0, 0.08552095, -2.356453)
+shape = SubResource("CapsuleShape3D_w4su7")
+
+[node name="Body" type="CollisionShape3D" parent="." unique_id=608865768]
+transform = Transform3D(1, 0, 0, 0, -0.0058642775, 0.99998295, 0, -0.99998295, -0.0058642775, 0, -0.33849725, 0.14366472)
+shape = SubResource("CapsuleShape3D_gxatr")
+
+[node name="Skids" type="CollisionShape3D" parent="." unique_id=282154629]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.7, -1.24, 0.31486815)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="Skids2" type="CollisionShape3D" parent="." unique_id=463456018]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.7, -1.24, 0.30607206)
+shape = SubResource("CapsuleShape3D_vwy8u")
+
+[node name="md500" parent="." unique_id=1230324992 instance=ExtResource("2_br1qm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29894266, 1.4523423)
+visible = false
+
+[node name="cameraMarker" type="Marker3D" parent="." unique_id=1981270082 node_paths=PackedStringArray("cameraMarker", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28652805, -0.30261517, 0.90606564)
+script = ExtResource("3_i82cg")
+cameraMarker = NodePath(".")
+camera = NodePath("playerCamera")
+
+[node name="playerCamera" type="Camera3D" parent="cameraMarker" unique_id=1792972061]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.00015985966, 0.00016488135, 0.00048935413)
+current = true
+fov = 100.0
+
+[node name="Body2" parent="." unique_id=1303290219 instance=ExtResource("4_cwq3k")]
+transform = Transform3D(-2.6226834e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.6226834e-08, 0, -1.7750216, 0.60534)
+
+[node name="mainRotor" parent="." unique_id=1068337736 instance=ExtResource("5_77sjf")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.16679317, -0.056966364)
+
+[node name="tailRotor" parent="." unique_id=769392692 instance=ExtResource("6_npwqm")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.49486, -0.11794609, -4.342581)
+
+[node name="Wing" parent="." unique_id=1698172203 instance=ExtResource("9_br1qm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4378059, 0, 0)

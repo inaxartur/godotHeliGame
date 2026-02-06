@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c7jnncficak32"]
+
+[ext_resource type="Script" uid="uid://clrxxwcuv4qfb" path="res://assets/Scripts/wing.gd" id="1_ymocc"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ymocc"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kg8q1"]
+
+[node name="Wing" type="Node3D" unique_id=1875158954]
+script = ExtResource("1_ymocc")
+
+[node name="WingMESH" type="MeshInstance3D" parent="." unique_id=548405990]
+transform = Transform3D(0.14142136, 0, -0.14142136, 0, 0.2, 0, 0.14142136, 0, 0.14142136, 0.20197472, 0, 0)
+mesh = SubResource("PlaneMesh_ymocc")
+
+[node name="WingMESH2" type="MeshInstance3D" parent="." unique_id=1146209969]
+transform = Transform3D(0.20710438, 0, 0, 0, 0.10475445, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_kg8q1")
