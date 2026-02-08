@@ -10,9 +10,9 @@
 script = ExtResource("1_ymocc")
 
 [node name="WingMESH" type="MeshInstance3D" parent="." unique_id=548405990]
-transform = Transform3D(0.14142136, 0, -0.14142136, 0, 0.2, 0, 0.14142136, 0, 0.14142136, 0.20197472, 0, 0)
+transform = Transform3D(-0.14142135, 0, -0.14142138, 0, 0.2, 0, 0.14142138, 0, -0.14142135, 0, 0, 0.17681658)
 mesh = SubResource("PlaneMesh_ymocc")
 
 [node name="WingMESH2" type="MeshInstance3D" parent="." unique_id=1146209969]
-transform = Transform3D(0.20710438, 0, 0, 0, 0.10475445, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(2.715846e-08, 0, -1, 0, 0.10475445, 0, 0.20710438, 0, 1.3113416e-07, 0, 0, 0)
 mesh = SubResource("PlaneMesh_kg8q1")
