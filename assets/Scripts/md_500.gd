@@ -28,7 +28,12 @@ const stepInputValue := 2
 var yawAxis : Vector3 = Vector3.ZERO
 var pitchAxis : Vector3 = Vector3.ZERO
 var rollAxis : Vector3 = Vector3.ZERO
+var rollAxisOffset : Vector3 = Vector3.ZERO
 var rateOfClimb : Vector3 = Vector3.ZERO
+
+var globalRollAxis : Vector3 = Vector3.BACK
+var heliPitch : float
+var heliPitchDeg : float
 
 var angleOfROC : float = 0.0
 
@@ -55,7 +60,8 @@ func _process(_delta: float) -> void:
 	yawAxis = global_transform.basis.y
 	pitchAxis = global_transform.basis.x
 	rollAxis = global_transform.basis.z
-	
+	rollAxisOffset = globalRollAxis
+	rollAxisOffset.y = rollAxis.y
 	upForce = yawAxis * blade.liftForce
 	apply_force(upForce, Vector3.ZERO)
 	debug()
@@ -67,6 +73,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	speed = pathVector.length() / get_process_delta_time()
 	angleOfROC = pathVector.angle_to(yawAxis)
 	rateOfClimb = pathVector * cos(angleOfROC)
+	if rollAxisOffset.y < 0:
+		heliPitch = -globalRollAxis.angle_to(rollAxisOffset)
+	else:
+		heliPitch = globalRollAxis.angle_to(rollAxisOffset)
+	heliPitchDeg = rad_to_deg(heliPitch)
 	previousPosition = currentPosition
 
 ### HANDLING INPUT ###
@@ -80,7 +91,7 @@ func inputHandler() -> void:
 		if collective - stepInputValue < 0:
 			pass
 		else:
-			collective -= stepInputValue+1
+			collective -= stepInputValue
 	if Input.is_action_pressed("pitch_up"):
 		apply_torque(-pitchAxis * horsePower)
 		stickNode.rotation.z = -stickRot
@@ -126,7 +137,10 @@ func debug() -> void:
 	if debugMode == true:
 		if debugIter > 10:
 			print("rotation: ", rotation)
-			print("global position: ", global_position, " | previousPosition: ", previousPosition)
+			#print("global position: ", global_position, " | previousPosition: ", previousPosition)
+			print("Heli pitch DEG: ", rad_to_deg(heliPitch))
+			#print("Heli pitch RAD: ", heliPitch)
+			print("rollaxisoffset.y: ", rollAxisOffset.y)
 			print("speed: ", speed)
 			print("angle of roc: ", angleOfROC)
 			debugIter = 0
@@ -141,12 +155,16 @@ func drawVectors() -> void:
 	if pathVector != Vector3.ZERO || global_position != global_position:
 		#DebugDraw3D.draw_line(global_position, -pathVector*10 + global_position)
 		DebugDraw3D.draw_line(global_position, pathVector*10 + global_position)
-		DebugDraw3D.draw_line(global_position, rateOfClimb*10 + global_position, Color.CYAN)
+		#DebugDraw3D.draw_line(global_position, rateOfClimb*10 + global_position, Color.CYAN)
 		
 	#DebugDraw3D.draw_line(global_position, (upForce/100) + global_position)
 	
+	DebugDraw3D.draw_line(position, (globalRollAxis + position), Color.FLORAL_WHITE)
+	DebugDraw3D.draw_line(position, (rollAxisOffset + position), Color.BISQUE)
+	#DebugDraw3D.draw_line(position, (globalPitchAxis + position), Color.FLORAL_WHITE)
+	
 	DebugDraw3D.draw_line(position, (yawAxis + position))
-	DebugDraw3D.draw_line(position, (pitchAxis + position))
+	#DebugDraw3D.draw_line(position, (pitchAxis + position))
 	DebugDraw3D.draw_line(position, (rollAxis + position))
 	
 

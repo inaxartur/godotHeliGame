@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c3dvp57d7vgla" path="res://assets/Scripts/md_500.gd" id="1_7ig1u"]
 [ext_resource type="PackedScene" uid="uid://blxsde2b5ur30" path="res://assets/Models/md500.fbx" id="2_br1qm"]
+[ext_resource type="Curve" uid="uid://dttrbdp7802rm" path="res://liftCoefCurve.tres" id="3_cwq3k"]
 [ext_resource type="Script" uid="uid://ctgquom7dq07r" path="res://assets/Scripts/player_camera.gd" id="3_i82cg"]
 [ext_resource type="PackedScene" uid="uid://bku3ldq0llk58" path="res://assets/Models/Kiowa/Body.fbx" id="4_cwq3k"]
 [ext_resource type="PackedScene" uid="uid://c42sfloreqa01" path="res://assets/Models/Kiowa/mainRotor.fbx" id="5_77sjf"]
@@ -10,10 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://bbcewbjslinye" path="res://assets/Models/Kiowa/collectivee.fbx" id="8_yvisg"]
 [ext_resource type="PackedScene" uid="uid://c7jnncficak32" path="res://Scenes/wing.tscn" id="9_br1qm"]
 
-[sub_resource type="Curve" id="Curve_br1qm"]
-_limits = [-1.5, 1.5, -1.0, 1.0]
-_data = [Vector2(-0.7674418, -0.0035768747), 0.0, 0.0, 0, 0, Vector2(-0.49682873, -1.3676467), 2.807951, 2.807951, 0, 0, Vector2(0.0021141768, -0.0035768747), 3.2586114, 3.2586114, 0, 0, Vector2(0.49682876, 1.3650001), 2.6984377, 2.6984377, 0, 0, Vector2(0.76955605, 0), 0.0, 0.0, 0, 0]
-point_count = 5
+[sub_resource type="Curve" id="Curve_i82cg"]
+_limits = [-8.0, 8.0, 0.0, 15.0]
+_data = [Vector2(0, -8), 0.0, 0.0, 0, 0, Vector2(15, 8), 1.4933335, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 51
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gxatr"]
 radius = 0.77246094
@@ -27,7 +30,7 @@ height = 2.425232
 size = Vector3(1.4713783, 2.1317139, 0.051757813)
 
 [node name="Player" type="RigidBody3D" unique_id=523075479 node_paths=PackedStringArray("tailRotorNode", "mainRotorNode", "collectiveNode", "stickNode", "stick2Node", "blade")]
-mass = 175.0
+mass = 2000.0
 center_of_mass_mode = 1
 script = ExtResource("1_7ig1u")
 tailRotorNode = NodePath("tailRotor")
@@ -40,7 +43,8 @@ blade = NodePath("BladeLeft")
 [node name="BladeLeft" parent="." unique_id=1698172203 node_paths=PackedStringArray("heliNode") instance=ExtResource("9_br1qm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.195, 0)
 heliNode = NodePath("..")
-liftCoefCurve = SubResource("Curve_br1qm")
+liftCoefCurve = ExtResource("3_cwq3k")
+thrustCoefCurve = SubResource("Curve_i82cg")
 
 [node name="HOTAS" type="Node3D" parent="." unique_id=727686336]
 
@@ -66,6 +70,7 @@ fov = 100.0
 
 [node name="Body" type="CollisionShape3D" parent="." unique_id=608865768]
 transform = Transform3D(1, 0, 0, 0, -0.0058642775, 0.99998295, 0, -0.99998295, -0.0058642775, 0, -0.33849725, 0.14366472)
+visible = false
 shape = SubResource("CapsuleShape3D_gxatr")
 
 [node name="Tail" type="CollisionShape3D" parent="." unique_id=372417389]
@@ -82,9 +87,11 @@ visible = false
 
 [node name="Body2" parent="." unique_id=1303290219 instance=ExtResource("4_cwq3k")]
 transform = Transform3D(-2.6226834e-08, 0, 0.6, 0, 0.6, 0, -0.6, 0, -2.6226834e-08, 0, -1.7750216, 0.60534)
+visible = false
 
 [node name="mainRotor" parent="." unique_id=1068337736 instance=ExtResource("5_77sjf")]
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0.16679317, -0.056966364)
+visible = false
 
 [node name="tailRotor" parent="." unique_id=769392692 instance=ExtResource("6_npwqm")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.49486, -0.11794609, -4.342581)

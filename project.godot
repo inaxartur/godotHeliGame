@@ -24,6 +24,16 @@ settings/addon_root_folder="res://addons/debug_draw_3d"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[file_customization]
+
+folder_colors={
+"res://Scenes/": "green",
+"res://addons/": "gray",
+"res://assets/": "red",
+"res://assets/Models/": "orange",
+"res://assets/Scripts/": "yellow"
+}
+
 [input]
 
 throttle_up={
