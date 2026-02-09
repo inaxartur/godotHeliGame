@@ -28,6 +28,9 @@ const stepInputValue := 2
 var yawAxis : Vector3 = Vector3.ZERO
 var pitchAxis : Vector3 = Vector3.ZERO
 var rollAxis : Vector3 = Vector3.ZERO
+var rateOfClimb : Vector3 = Vector3.ZERO
+
+var angleOfROC : float = 0.0
 
 var collective := 0.0
 var throttle := 0.0
@@ -62,6 +65,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	currentPosition = state.transform.origin
 	pathVector = currentPosition - previousPosition
 	speed = pathVector.length() / get_process_delta_time()
+	angleOfROC = pathVector.angle_to(yawAxis)
+	rateOfClimb = pathVector * cos(angleOfROC)
 	previousPosition = currentPosition
 
 ### HANDLING INPUT ###
@@ -123,6 +128,7 @@ func debug() -> void:
 			print("rotation: ", rotation)
 			print("global position: ", global_position, " | previousPosition: ", previousPosition)
 			print("speed: ", speed)
+			print("angle of roc: ", angleOfROC)
 			debugIter = 0
 		else:
 			debugIter += 1
@@ -133,10 +139,11 @@ func debug() -> void:
 func drawVectors() -> void:
 	
 	if pathVector != Vector3.ZERO || global_position != global_position:
-		DebugDraw3D.draw_line(global_position, -pathVector*10 + global_position)
+		#DebugDraw3D.draw_line(global_position, -pathVector*10 + global_position)
 		DebugDraw3D.draw_line(global_position, pathVector*10 + global_position)
+		DebugDraw3D.draw_line(global_position, rateOfClimb*10 + global_position, Color.CYAN)
 		
-	DebugDraw3D.draw_line(global_position, (upForce/100) + global_position)
+	#DebugDraw3D.draw_line(global_position, (upForce/100) + global_position)
 	
 	DebugDraw3D.draw_line(position, (yawAxis + position))
 	DebugDraw3D.draw_line(position, (pitchAxis + position))

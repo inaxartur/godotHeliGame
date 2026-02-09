@@ -10,11 +10,13 @@ const PIdivby30 := 0.10471975512
 @export var bladeLength := 5.335 # METERS
 @export var bladeWidth := 0.273 # METERS
 @export var liftCoefCurve : Curve
+var airDensity := 1.225
 
 var liftForce : float
 var heliPathVec : Vector3
 var heliSpeed : float = 0.1
 var bladeArea = bladeLength * bladeWidth # METERS^2
+var rotorArea = pow(bladeLength, 2) * PI
 
 var yawAxis : Vector3 = Vector3.ZERO
 var pitchAxis : Vector3 = Vector3.ZERO
@@ -41,10 +43,10 @@ func _process(delta: float) -> void:
 	
 	rpm = heliNode.rpm
 	bladeSpeed = (rpm * PIdivby30 * 3.0) + heliSpeed
-	aoa = 0.05 - (heliNode.collective / 200) # RADIANS
+	aoa = 0 - (heliNode.collective / 200) # RADIANS
 	liftCoef = liftCoefCurve.sample(-aoa)
 	
-	liftForce = liftCoef * pow(bladeSpeed, 2) * bladeArea
+	liftForce = liftCoef * pow(bladeSpeed, 2) * bladeArea * airDensity
 	
 	drawVectors()
 	
