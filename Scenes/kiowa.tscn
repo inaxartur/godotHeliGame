@@ -12,8 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://c7jnncficak32" path="res://Scenes/wing.tscn" id="9_br1qm"]
 
 [sub_resource type="Curve" id="Curve_i82cg"]
-_limits = [-8.0, 8.0, 0.0, 15.0]
-_data = [Vector2(0, -8), 0.0, 0.0, 0, 0, Vector2(15, 8), 1.4933335, 0.0, 0, 0]
+_limits = [0.0, 0.5, 0.0, 1.0]
+_data = [Vector2(0, 0.3137255), 0.7, -0.19624259, 0, 0, Vector2(0.8039216, 0), -0.5802249, 0.0, 0, 0]
 point_count = 2
 metadata/_snap_enabled = true
 metadata/_snap_count = 51
